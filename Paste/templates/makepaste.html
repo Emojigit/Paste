@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Paste</title>
+    <style>
+        form {
+            width: 90%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        textarea {
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body style="text-align:center;font-family:sans-serif;">
+    <h1>Paste</h1>
+    {% if status %}<h3>{{ status }}</h3>{% endif %}
+    {% if access_token %}<p>Access: <a href="/{{ access_id }}-{{ access_token }}/">{{ sname }}/{{ access_id }}-{{ access_token }}/</a><br />Delete: <a href="/d/{{ access_id }}-{{ delete_token }}/">{{ sname }}/d/{{ access_id }}-{{ delete_token }}/</a></p><p>Please copy them as you will not see them again!</p>{% endif %}
+    <form action="/" method="post">{% csrf_token %}
+        <label for="title">Title:&nbsp;</label><input type="text" id="title" name="title" value="{{ title }}" required /><br />
+        <textarea id="content" name="content" required>{{ content }}</textarea><br />
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+</html>

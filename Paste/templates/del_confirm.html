@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Confirm Delete | Paste</title>
+</head>
+<body style="text-align:center;font-family:sans-serif;">
+    <h1>Confirm Delete: {{ title }}</h1>
+    <p>Do you really want to delete this paste? This is irreversible!</p>
+    <form action="/d/{{ id }}-{{ delete_token }}/" method="post">{% csrf_token %}<input type="submit" value="Yes, Do it" /></form>
+    <a href="/">No, back to main page</a>
+</body>
+</html>
