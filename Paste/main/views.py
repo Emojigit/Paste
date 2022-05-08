@@ -17,11 +17,16 @@ def create(request):
         try:
             title = data["title"]
             content = data["content"]
-        except KeyError:
-            t_dict["status"] = "Missing Data"
             t_dict["title"] = title
             t_dict["content"] = content
+        except KeyError:
+            t_dict["status"] = "Missing Data"
             return render(request, "makepaste.html",t_dict,status=400)
+        for x in Ban.objects.all():
+            if not x.enabled: continue
+            if content.lower().__contains__(x.keyword.lower()) or title.lower().__contains__(x.keyword.lower()):
+                t_dict["status"] = "Ban keyword match: " + x.keyword
+                return render(request, "makepaste.html",t_dict,status=400)
         t_dict["access_token"] = randomword(10)
         t_dict["delete_token"] = randomword(10)
         p = Paste.objects.create(title=title,content=content,access_token=t_dict["access_token"],delete_token=t_dict["delete_token"])
